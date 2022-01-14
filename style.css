@@ -1,0 +1,11 @@
+body {
+    background-color: rgb(223, 223, 223);
+    text-align: center;
+    margin-top: 10vh;
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+div {
+    margin: 15px;
+}
