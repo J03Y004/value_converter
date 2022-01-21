@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(27, 27, 27);
+    background-color: rgb(27, 19, 54);
     display: flex;
     align-items: center;
     align-content: center;
@@ -10,8 +10,9 @@ body {
     margin-right: 10vw;
 }
 
-h3 {
-    color: white;
+h2 {
+    color: rgb(39, 119, 238);
+    margin-bottom: 30;
 }
 
 .form-select {
