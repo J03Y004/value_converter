@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $("#convert").click(function() {
+    $("#val_1").on("input", function() {
         var initCurrency = $("#select_currency_1").val();
         var finalCurrency = $("#select_currency_2").val();
         var quantity = $("#val_1").val();
@@ -18,12 +18,12 @@ $(document).ready(function() {
                 dataType: "json",
                 success: function(asynCallResult) {
                     result = quantity * asynCallResult.data[finalCurrency];
-                    $("val_2").html(result);
+                    $("#val_2").val(result);
                 },
                 error: function() {
-                    $("val_2").html("Server not reachable");
+                    $("#val_2").val("");
                 }
             });
         } else result = quantity;
-    }); //END VISUALIZZAUTENTI  
+    });
 });
