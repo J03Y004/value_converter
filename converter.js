@@ -1,9 +1,11 @@
 $(document).ready(function() {
 
     var initCurrency = $("#select_currency_1").val();
+    var fromDate = $("#fromDate").val();
+    var toDate = $("#toDate").val();
 
-    var historicalValues = "https://freecurrencyapi.net/api/v2/historical?apikey=019e7eb0-7935-11ec-a3c5-bb07a300b220&base_currency=USD&date_from=2020-10-01&date_to=2022-01-21";
-    historicalValues = historicalValues + "&base_currency=" + initCurrency;
+    var historicalValues = "https://freecurrencyapi.net/api/v2/historical?apikey=019e7eb0-7935-11ec-a3c5-bb07a300b220";
+    historicalValues = historicalValues + "&base_currency=" + initCurrency + "&date_from=" + fromDate + "&date_to=" + toDate;
     $.ajax({
         contentType: "application/json",
         type: "GET",
@@ -42,12 +44,12 @@ $(document).ready(function() {
             lineSeries.setData(asynCallResult.data);
         },
         error: function() {
-
+          console.log("Tradingwiew chart server not reachable");
         }
     });
 
     $("#val_1").on("input", function() {
-        var initCurrency = $("#select_currency_1").val();
+        initCurrency = $("#select_currency_1").val();
         var finalCurrency = $("#select_currency_2").val();
         var quantity = $("#val_1").val();
 
