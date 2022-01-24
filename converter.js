@@ -4,8 +4,9 @@ $(document).ready(function() {
     var fromDate = $("#fromDate").val();
     var toDate = $("#toDate").val();
 
-    var historicalValues = "https://freecurrencyapi.net/api/v2/historical?apikey=019e7eb0-7935-11ec-a3c5-bb07a300b220";
-    historicalValues = historicalValues + "&base_currency=" + initCurrency + "&date_from=" + fromDate + "&date_to=" + toDate;
+    var historicalValues = "https://freecurrencyapi.net/api/v2/historical?apikey=019e7eb0-7935-11ec-a3c5-bb07a300b220&base_currency=USD&date_from=2020-10-01&date_to=2022-01-24";
+    //var historicalValues = "https://freecurrencyapi.net/api/v2/historical?apikey=019e7eb0-7935-11ec-a3c5-bb07a300b220";
+    //historicalValues = historicalValues + "&base_currency=" + initCurrency + "&date_from=" + fromDate + "&date_to=" + toDate;
     $.ajax({
         contentType: "application/json",
         type: "GET",
@@ -16,8 +17,8 @@ $(document).ready(function() {
         success: function(asynCallResult) {
             dati = asynCallResult.data;
             const chart = LightweightCharts.createChart(document.getElementById('diagram'), {
-                width: 700,
-                height: 400,
+                width: document.getElementById('diagram').offsetWidth,
+                height: document.getElementById('diagram').offsetHeight,
                 layout: {
                   backgroundColor: 'rgb(17, 17, 39)',
                   textColor: 'rgba(255, 255, 255, 0.9)',
@@ -41,10 +42,28 @@ $(document).ready(function() {
                 },
               });
             const lineSeries = chart.addLineSeries();
-            lineSeries.setData(asynCallResult.data);
+            lineSeries.setData([
+              { time: '2019-04-11', value: 80.01 },
+              { time: '2019-04-12', value: 96.63 },
+              { time: '2019-04-13', value: 76.64 },
+              { time: '2019-04-14', value: 81.89 },
+              { time: '2019-04-15', value: 74.43 },
+              { time: '2019-04-16', value: 80.01 },
+              { time: '2019-04-17', value: 96.63 },
+              { time: '2019-04-18', value: 76.64 },
+              { time: '2019-04-19', value: 81.89 },
+              { time: '2019-04-20', value: 74.43 },
+          ]);
+
+            // Make Chart Responsive with screen resize
+            new ResizeObserver(entries => {
+            if (entries.length === 0 || entries[0].target !== document.getElementById('diagram')) { return; }
+            const newRect = entries[0].contentRect;
+            chart.applyOptions({ height: newRect.height, width: newRect.width });
+            }).observe(document.getElementById("diagram"));
         },
-        error: function() {
-          console.log("Tradingwiew chart server not reachable");
+          error: function() {
+            console.log("Freecurrency server not reachable");
         }
     });
 
@@ -66,6 +85,10 @@ $(document).ready(function() {
                 dataType: "json",
                 success: function(asynCallResult) {
                     result = quantity * asynCallResult.data[finalCurrency];
+                    
+                    if(result == 0)     //per motivi estetici quando il campo di sopra è vuoto pongo svuoto (e non scrivo 0) in quello di sotto
+                      result = null;
+
                     $("#val_2").val(result);
                 },
                 error: function() {

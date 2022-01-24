@@ -1,16 +1,17 @@
 body {
-    background-color: rgb(27, 19, 54);
+    background-color:#070220;
     display: flex;
     align-items: center;
     align-content: center;
     justify-content: center;
     flex-flow: column nowrap;
-    margin-top: 10vh;
+    margin-top: 5vh;
     margin-left: 10vw;
     margin-right: 10vw;
+    
 }
 
-h2 {
+h1 {
     color: rgb(39, 119, 238);
     margin-bottom: 30;
 }
@@ -19,6 +20,15 @@ h2 {
     max-width: 90;
 }
 
+#val_2 {
+    background-color: white;
+}
+
 div.input-group {
     max-width: 700;
+}
+
+#diagram {
+    width: 100%;
+    height: 70%;
 }
