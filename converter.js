@@ -7,8 +7,10 @@ $(document).ready(function() {
         return local.toJSON().slice(0,10);
     });
 
-    document.getElementById('finalDate').value = maxDate;
+    document.getElementById('finalDate').value = "01-01-2017";
     document.getElementById('finalDate').value = new Date().toDateInputValue();     //assigns current date to the final date input area
+
+    //historicalGraph();
 
     $("#val_1, #select_currency_1, #select_currency_2").on("input", function() {
         let initCurrency = $("#select_currency_1").val();       //gets the input currency actually chosen
@@ -63,7 +65,7 @@ $(document).ready(function() {
               for (const data in dati) {
                   dataGraph.push({time: data, value: dati[data][finalCurrency]})
               }
-              graph(dataGraph);
+              generateGraph(dataGraph);
           },
           error: function() {
               console.log("Freecurrency server not reachable");
@@ -73,7 +75,7 @@ $(document).ready(function() {
     });
 });
 
-function graph(dataGraph) {
+function generateGraph(dataGraph) {
     $("#diagram").empty();
     const chart = LightweightCharts.createChart(document.getElementById('diagram'), {
         width: document.getElementById('diagram').offsetWidth,
@@ -109,4 +111,35 @@ function graph(dataGraph) {
         const newRect = entries[0].contentRect;
         chart.applyOptions({ height: newRect.height, width: newRect.width });
     }).observe(document.getElementById("diagram"));
+
+    function historicalGraph() {
+        let initDate = $("#initDate").val();
+        let finalDate = $("#finalDate").val();
+        let initCurrency = $("#select_currency_1").val();
+        let finalCurrency = $("#select_currency_2").val();
+
+        let historicalValues = "https://freecurrencyapi.net/api/v2/historical?apikey=019e7eb0-7935-11ec-a3c5-bb07a300b220";
+        historicalValues = historicalValues + "&base_currency=" + initCurrency + "&date_from=" + initDate + "&date_to=" + finalDate;
+
+        $.ajax({
+          contentType: "application/json",
+          type: "GET",
+          url: historicalValues,
+          crossdomain: true,
+          data: "",
+          dataType: "json",
+          success: function(asynCallResult) {
+              let dati = asynCallResult.data;
+              let dataGraph = [];
+              for (const data in dati) {
+                  dataGraph.push({time: data, value: dati[data][finalCurrency]})
+              }
+              generateGraph(dataGraph);
+          },
+          error: function() {
+              console.log("Freecurrency server not reachable");
+          }
+      });
+  
+    }
 }
