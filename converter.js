@@ -1,14 +1,25 @@
 $(document).ready(function() {
-    $("#val_1").on("input", function() {
-        let initCurrency = $("#select_currency_1").val();
-        let finalCurrency = $("#select_currency_2").val();
-        let quantity = $("#val_1").val();
+    
+    //gets current date
+    Date.prototype.toDateInputValue = (function() {
+        var local = new Date(this);
+        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+        return local.toJSON().slice(0,10);
+    });
+
+    document.getElementById('finalDate').value = maxDate;
+    document.getElementById('finalDate').value = new Date().toDateInputValue();     //assigns current date to the final date input area
+
+    $("#val_1, #select_currency_1, #select_currency_2").on("input", function() {
+        let initCurrency = $("#select_currency_1").val();       //gets the input currency actually chosen
+        let finalCurrency = $("#select_currency_2").val();      //gets the output currency acctually chosen
+        let quantity = $("#val_1").val();                       //gests the quantity of money to convert
 
         let endpointapi = "https://freecurrencyapi.net/api/v2/latest?apikey=019e7eb0-7935-11ec-a3c5-bb07a300b220";
         endpointapi = endpointapi + "&base_currency=" + initCurrency;
         if (!(initCurrency == finalCurrency)) {
             let result = "";
-            $.ajax({
+            $.ajax({        //asynchronous call
                 contentType: "application/json",
                 type: "GET",
                 url: endpointapi,
@@ -18,7 +29,7 @@ $(document).ready(function() {
                 success: function(asynCallResult) {
                     result = quantity * asynCallResult.data[finalCurrency];
 
-                    if (result == 0) //per motivi estetici quando il campo di sopra è vuoto pongo svuoto (e non scrivo 0) in quello di sotto
+                    if (result == 0)        //in order to estethical reasons when the upper input area is void I set to void (instead than 0) the bottom area too
                         result = null;
 
                     $("#val_2").val(result);
@@ -30,7 +41,7 @@ $(document).ready(function() {
         } else result = quantity;
     });
 
-    $("#initDate, #finalDate").on("input", function() {
+    $("#initDate, #finalDate, #select_currency_1, #select_currency_2").on("input", function() {
         let initDate = $("#initDate").val();
         let finalDate = $("#finalDate").val();
         let initCurrency = $("#select_currency_1").val();
