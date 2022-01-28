@@ -10,15 +10,16 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
         <script type="text/javascript " src="converter.js "></script>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
-        <h1>Currency Converter</h2>
+        <h1>Currency Converter</h1>
 
         <div class="input-group mb-3">
             <input id="val_1" type="number" class="form-control" aria-label="Text input with dropdown button">
-            <select class="form-select" id="select_currency_1" style="color: rgb(0, 94, 216); font-weight: bold;">
+            <select class="form-select" id="select_currency_1" style="color: rgb(0, 94, 255); font-weight: bold;">
                 <option value="USD">USD</option>
                 <option value="EUR" selected>EUR</option>
                 <option value="JPY">JPY</option>
@@ -57,7 +58,7 @@
 
         <div class="input-group mb-3">
             <input id="val_2" type="text" class="form-control" aria-label="Text input with dropdown button" readonly>
-            <select class=" form-select " id="select_currency_2" style="color: rgb(0, 94, 216); font-weight: bold;">
+            <select class=" form-select " id="select_currency_2" style="color: rgb(0, 94, 255); font-weight: bold;">
                 <option value="USD" selected>USD</option>
                 <option value="EUR">EUR</option>
                 <option value="JPY">JPY</option>
@@ -94,13 +95,15 @@
             </select>
         </div>
 
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" style="display: flex;">
             <button id="btn-week" type="button" class="btn btn-outline-light">WEEK</button>
             <button id="btn-month" type="button" class="btn btn-outline-light">MONTH</button>
             <button id="btn-year" type="button" class="btn btn-outline-light">YEAR</button>
             <button id="btn-all" type="button" class="btn btn-outline-light">ALL</button>
-            <input type="date" class="form-control" id="initDate">
-            <input type="date" class="form-control" id="finalDate">
+        </div>
+        <div class="input-group mb-3">
+            <input type="date" class="form-control link-light" id="initDate">
+            <input type="date" class="form-control link-light" id="finalDate">
         </div>
 
         <div id="diagram">
